@@ -1,23 +1,3 @@
-print('fuxk')
-
-if not game:IsLoaded() then game.Loaded:Wait() end
-local fask = task 
-setreadonly(fask,false)
-
-local RunService =  game:GetService("RunService")
-local myWait = function(n)
-	if not n then
-		return RunService.Heartbeat:Wait()
-	else
-		local lasted = 0
-		repeat
-			lasted = lasted + RunService.Heartbeat:Wait()
-		until lasted >= n
-		return lasted
-	end
-end
-fask.wait = myWait
-
 local id = game.PlaceId if id == 2753915549 then World1 = true; elseif id == 4442272183 then World2 = true; elseif id == 7449423635 then World3 = true; else game:Shutdown() end;
 
 do -- Team Script
