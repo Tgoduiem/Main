@@ -15,7 +15,7 @@ MainFrame.Name = "MainFrame"
 MainFrame.Parent = MainScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 MainFrame.BackgroundTransparency = 1
-MainFrame.Size = UDim2.new(0.5, 0, 0.5, 0)
+MainFrame.Size = UDim2.new(1, 0, 1, 0)
 MainFrame.Draggable = true
 
 ButtonScreenGui.Name = "ButtonScreenGui"
@@ -37,8 +37,8 @@ UICorner.Parent = ImageButton
 ImageButton.MouseButton1Click:Connect(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
 
-    local scaleUpTween = TweenService:Create(ImageButton, TweenInfo.new(0.1), { Size = UDim2.new(0, 55, 0, 55) })
-    local scaleDownTween = TweenService:Create(ImageButton, TweenInfo.new(0.1), { Size = UDim2.new(0, 50, 0, 50) })
+    local scaleUpTween = TweenService:Create(ImageButton, TweenInfo.new(0.1), { Size = UDim2.new(0, 45, 0, 45) })
+    local scaleDownTween = TweenService:Create(ImageButton, TweenInfo.new(0.1), { Size = UDim2.new(0, 35, 0, 30) })
 
     scaleUpTween:Play()
     scaleUpTween.Completed:Connect(function()
