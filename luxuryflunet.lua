@@ -1,3 +1,27 @@
+do -- Team Script
+	repeat 
+		ChooseTeam = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("ChooseTeam",true)
+		UIController = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("UIController",true)
+		if UIController and ChooseTeam then
+			if ChooseTeam.Visible then
+				for i,v in pairs(getgc()) do
+					if type(v) == "function" and getfenv(v).script == UIController then
+						local constant = getconstants(v)
+						pcall(function()
+							if constant[1] == "Pirates" and #constant == 1 then
+								v(shared.Team or "Pirates")
+							end
+						end)
+					end
+				end
+			end
+		end
+		wait(1)
+	until game.Players.LocalPlayer.Team
+	repeat wait() until game.Players.LocalPlayer.Character
+end
+
+
 local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/notification_gui_library.lua", true))()
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
