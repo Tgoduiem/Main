@@ -15,7 +15,7 @@ MainFrame.Name = "MainFrame"
 MainFrame.Parent = MainScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 MainFrame.BackgroundTransparency = 1
-MainFrame.Size = UDim2.new(1, 0, 1, 0)
+MainFrame.Size = UDim2.new(0.5, 0, 0.5, 0)
 MainFrame.Draggable = true
 
 ButtonScreenGui.Name = "ButtonScreenGui"
