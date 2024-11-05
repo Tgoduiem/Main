@@ -1391,6 +1391,7 @@ spawn(function()
                 _G.AutoBartilo or
                 _G.AutoFactory or
                 _G.AutoPirateRaid or
+                _G.AutoAutoMastery or
                 _G.AutoChestSafe
             then
                 enableNoclip()
@@ -1761,6 +1762,13 @@ do
         StopTween(_G.AutoFarmPrince)
     end)
     Options.AutoCakePrinceFlag:SetValue(false)
+     SelectTypeMas = Tabs.Main:AddDropdown("SelectTypeMas", {
+        Title = "Select Type Mas",
+        Values = { "Gun", "Fruits" },
+        Multi = false,
+        Default = 1,
+    })
+    SelectWeapon:SetValue("Fruits")
 
     if World1 then
         MaterialList = {
