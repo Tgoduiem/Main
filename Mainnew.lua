@@ -10,14 +10,6 @@ local function MakeDraggable(topbarobject, object)
     local DragStart = nil
     local StartPosition = nil
 
-     local scaleUpTween = TweenService:Create(ImageButton, TweenInfo.new(0.1), { Size = UDim2.new(0, 55, 0, 55) })
-    local scaleDownTween = TweenService:Create(ImageButton, TweenInfo.new(0.1), { Size = UDim2.new(0, 50, 0, 50) })
-
-    scaleUpTween:Play()
-    scaleUpTween.Completed:Connect(function()
-        scaleDownTween:Play()
-    end)
-end)
 
     topbarobject.InputBegan:Connect(
         function(input)
