@@ -1,9 +1,26 @@
-print("hook func") 
-print("remove effect") 
-print("alr") 
-
-print("attack func") 
-
+function TP2(Pos)
+    if game.Players.LocalPlayer.Character.Humanoid.Health > 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        local Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+        if not Pos then 
+            return 
+        end
+        if not game.Players.LocalPlayer.Character:FindFirstChild("PartTele") then
+            local PartTele = Instance.new("Part", game.Players.LocalPlayer.Character) -- Create part
+            PartTele.Size = Vector3.new(1,1,1)
+            PartTele.Name = "PartTele"
+            PartTele.Anchored = true
+            PartTele.Transparency = 1
+            PartTele.CanCollide = false
+            PartTele.CFrame = WaitHRP(game.Players.LocalPlayer).CFrame 
+            PartTele:GetPropertyChangedSignal("CFrame"):Connect(function()
+                task.wait()
+                WaitHRP(game.Players.LocalPlayer).CFrame = PartTele.CFrame
+            end)
+        end
+        local itzwindy = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.PartTele, TweenInfo.new(Distance / getgenv().TweenSpeed, Enum.EasingStyle.Linear), {CFrame = Pos})
+        itzwindy:Play()
+      end
+    end
 local player = game.Players.LocalPlayer
 local L1 = Instance.new("ScreenGui")
 local L2 = Instance.new("TextButton")
