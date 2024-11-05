@@ -1,6 +1,367 @@
+print('fuxk')
 
+if not game:IsLoaded() then game.Loaded:Wait() end
+local fask = task 
+setreadonly(fask,false)
+
+local RunService =  game:GetService("RunService")
+local myWait = function(n)
+	if not n then
+		return RunService.Heartbeat:Wait()
+	else
+		local lasted = 0
+		repeat
+			lasted = lasted + RunService.Heartbeat:Wait()
+		until lasted >= n
+		return lasted
+	end
+end
+fask.wait = myWait
 
 local id = game.PlaceId if id == 2753915549 then World1 = true; elseif id == 4442272183 then World2 = true; elseif id == 7449423635 then World3 = true; else game:Shutdown() end;
+
+do -- Team Script
+	repeat 
+		ChooseTeam = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("ChooseTeam",true)
+		UIController = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("UIController",true)
+		if UIController and ChooseTeam then
+			if ChooseTeam.Visible then
+				for i,v in pairs(getgc()) do
+					if type(v) == "function" and getfenv(v).script == UIController then
+						local constant = getconstants(v)
+						pcall(function()
+							if constant[1] == "Pirates" and #constant == 1 then
+								v(shared.Team or "Pirates")
+							end
+						end)
+					end
+				end
+			end
+		end
+		wait(1)
+	until game.Players.LocalPlayer.Team
+	repeat wait() until game.Players.LocalPlayer.Character
+end
+
+local SettingsGameData = {}
+
+xpcall(function()
+	if not isfolder("luxury scripts/ID/"..game.GameId) then
+		if syn then
+			makefolder("luxury scripts/ID/"..game.GameId)
+			writefile("luxury scripts/ID/"..game.GameId.."/"..game.Players.LocalPlayer.Name..".lua", game:GetService("HttpService"):JSONEncode(SettingsGameData));
+		else
+			makefolder("luxury scripts")
+			makefolder("luxury scripts/ID")
+			makefolder("luxury scripts/ID/"..game.GameId)
+			writefile("luxury scripts/ID/"..game.GameId.."/"..game.Players.LocalPlayer.Name..".lua", game:GetService("HttpService"):JSONEncode(SettingsGameData));
+		end
+	end
+	SettingsGameData = game:GetService("HttpService"):JSONDecode(readfile("luxury scripts/ID/"..game.GameId.."/"..game.Players.LocalPlayer.Name..".lua"));
+end,function()
+end)
+
+Selected_Weapons = SettingsGameData["Selected_Weapons"]
+SelectFastAttackMode = SettingsGameData["SelectFastAttackMode"]
+Fast_Attack = SettingsGameData["Fast_Attack"]
+NewFastAttack = SettingsGameData["NewFastAttack"]
+
+FarmLv = SettingsGameData["FarmLv"]
+Double_Quest = SettingsGameData["Double_Quest"]
+Fast_Farm_Mode = SettingsGameData["Fast_Farm_Mode"]
+Auto_New_World = SettingsGameData["Auto_New_World"]
+Auto_Third_Sea = SettingsGameData["Auto_Third_Sea"]
+
+Select_Bosses = SettingsGameData["Select_Bosses"]
+Auto_Boss_Select = SettingsGameData["Auto_Boss_Select"]
+Auto_Quest_Bosses = SettingsGameData["Auto_Quest_Bosses"]
+
+Auto_Superhuman = SettingsGameData["Auto_Superhuman"]
+Auto_Electric_Claw = SettingsGameData["Auto_Electric_Claw"]
+Auto_Death_Step = SettingsGameData["Auto_Death_Step"]
+Auto_Sharkman_Karate = SettingsGameData["Auto_Sharkman_Karate"]
+Auto_Dragon_Talon = SettingsGameData["Auto_Dragon_Talon"]
+Auto_Godhuman = SettingsGameData["Auto_Godhuman"]
+Sanguineart = SettingsGameData["Sanguineart"]
+
+Auto_All_Sword_Mastery = SettingsGameData["Auto_All_Sword_Mastery"]
+Auto_Farm_DF_Mastery = SettingsGameData["Auto_Farm_DF_Mastery"]
+Auto_Farm_Gun_Mastery = SettingsGameData["Auto_Farm_Gun_Mastery"]
+Mob_Kill = SettingsGameData["Mob_Kill"]
+
+Skill_Z = SettingsGameData["Skill_Z"]
+Skill_X = SettingsGameData["Skill_X"]
+Skill_C = SettingsGameData["Skill_C"]
+Skill_V = SettingsGameData["Skill_V"]
+Skill_F = SettingsGameData["Skill_F"]
+
+Auto_Stats_Kaitun = SettingsGameData["Auto_Stats_Kaitun"]
+Melee_Stats = SettingsGameData["Melee_Stats"]
+Defense_Stats = SettingsGameData["Defense_Stats"]
+Sword_Stats = SettingsGameData["Sword_Stats"]
+Gun_Stats = SettingsGameData["Gun_Stats"]
+Devil_Stats = SettingsGameData["Devil_Stats"]
+
+Auto_Saber = SettingsGameData["Auto_Saber"]
+Auto_Pole = SettingsGameData["Auto_Pole"]
+Auto_Pole_Hop = SettingsGameData["Auto_Pole_Hop"]
+Auto_Franky = SettingsGameData["Auto_Franky"]
+Auto_Franky_Hop = SettingsGameData["Auto_Franky_Hop"]
+Auto_Factory_Farm = SettingsGameData["Auto_Factory_Farm"]
+Auto_Factory_Farm_Hop = SettingsGameData["Auto_Factory_Farm_Hop"]
+Auto_Dark_Coat = SettingsGameData["Auto_Dark_Coat"]
+Auto_Dark_Coat_Hop = SettingsGameData["Auto_Dark_Coat_Hop"]
+Auto_Swan_Glasses = SettingsGameData["Auto_Swan_Glasses"]
+Auto_Swan_Glasses_Hop = SettingsGameData["Auto_Swan_Glasses_Hop"]
+
+Auto_Buy_Law_Chip = SettingsGameData["Auto_Buy_Law_Chip"]
+Auto_Start_Law_Dungeon = SettingsGameData["Auto_Start_Law_Dungeon"]
+Auto_Kill_Law = SettingsGameData["Auto_Kill_Law"]
+
+Auto_Find_Full_Moon = SettingsGameData["Auto_Find_Full_Moon"]
+GrabChestMysticIsland = SettingsGameData["GrabChestMysticIsland"]
+Auto_Mirage_Island = SettingsGameData["Auto_Mirage_Island"]
+Auto_Mirage_Island_Hop = SettingsGameData["Auto_Mirage_Island_Hop"]
+
+Auto_Buddy_Sword = SettingsGameData["Auto_Buddy_Sword"]
+Auto_Buddy_Sword_Hop = SettingsGameData["Auto_Buddy_Sword_Hop"]
+
+Auto_Farm_Boss_Hallow = SettingsGameData["Auto_Farm_Boss_Hallow"]
+Auto_Farm_Boss_Hallow_Hop = SettingsGameData["Auto_Farm_Boss_Hallow_Hop"]
+
+Auto_Farm_Elite_Hunter = SettingsGameData["Auto_Farm_Elite_Hunter"]
+Auto_Farm_Elite_Hunter_Hop = SettingsGameData["Auto_Farm_Elite_Hunter_Hop"]
+Stop_God_Chalice = SettingsGameData["Stop_God_Chalice"]
+
+Auto_Cavender = SettingsGameData["Auto_Cavender"]
+Auto_Cavender_Hop = SettingsGameData["Auto_Cavender_Hop"]
+
+Auto_Dark_Dagger = SettingsGameData["Auto_Dark_Dagger"]
+Auto_Dark_Dagger_Hop = SettingsGameData["Auto_Dark_Dagger_Hop"]
+
+Auto_TwinHooks = SettingsGameData["Auto_TwinHooks"]
+Auto_TwinHooks_Hop = SettingsGameData["Auto_TwinHooks_Hop"]
+
+Auto_Serpent_Bow = SettingsGameData["Auto_Serpent_Bow"]
+Auto_Serpent_Bow_Hop = SettingsGameData["Auto_Serpent_Bow_Hop"]
+
+AutoObservation = SettingsGameData["AutoObservation"]
+AutoObservation_Hop = SettingsGameData["AutoObservation_Hop"]
+
+Auto_Cake_Prince = SettingsGameData["Auto_Cake_Prince"]
+Farm_Bone = SettingsGameData["Farm_Bone"]
+Auto_Ectoplasm = SettingsGameData["Auto_Ectoplasm"]
+Auto_Bartilo_Quest = SettingsGameData["Auto_Bartilo_Quest"]
+Auto_Rengoku = SettingsGameData["Auto_Rengoku"]
+Auto_Holy_Torch = SettingsGameData["Auto_Holy_Torch"]
+PirateRaid = SettingsGameData["PirateRaid"]
+Auto_Rainbow_Haki = SettingsGameData["Auto_Rainbow_Haki"]
+
+AutoTushita = SettingsGameData["AutoTushita"] 
+AutoTushitaHop = SettingsGameData["AutoTushitaHop"] 
+
+AutoYama = SettingsGameData["AutoYama"] 
+AutoYamaHOP = SettingsGameData["AutoYamaHOP"] 
+
+Auto_Musketeer_Hat = SettingsGameData["Auto_Musketeer_Hat"]
+Auto_Observation_V2 = SettingsGameData["Auto_Observation_V2"]
+Auto_Dough_V2 = SettingsGameData["Auto_Dough_V2"]
+Auto_Quest_Soul_Guitar = SettingsGameData["Auto_Quest_Soul_Guitar"]
+Yama_Quest = SettingsGameData["Yama_Quest"]
+Get_Cursed = SettingsGameData["Get_Cursed"]
+
+Auto_Buy_Legendary_Sword = SettingsGameData["Auto_Buy_Legendary_Sword"]
+Auto_Buy_Legendary_Sword_Hop = SettingsGameData["Auto_Buy_Legendary_Sword_Hop"]
+Auto_Buy_Enchanment_Haki = SettingsGameData["Auto_Buy_Enchanment_Haki"]
+Auto_Buy_Enchanment_Haki_Hop = SettingsGameData["Auto_Buy_Enchanment_Haki_Hop"]
+
+Mink_Evo = SettingsGameData["Mink_Evo"]
+Human_Evo = SettingsGameData["Human_Evo"]
+Skypiea_Evo = SettingsGameData["Skypiea_Evo"]
+
+Terrorshark = SettingsGameData["Terrorshark"]
+TerrorsharkHop = SettingsGameData["TerrorsharkHop"]
+Auto_SeaBeast_Ship = SettingsGameData["Auto_SeaBeast_Ship"]
+Auto_Kill_Leviathan = SettingsGameData["Auto_Kill_Leviathan"]
+Auto_Frozen_Dimension = SettingsGameData["Auto_Frozen_Dimension"]
+
+Select_Raids = SettingsGameData["Select_Raids"]
+Auto_Raids = SettingsGameData["Auto_Raids"]
+Kill_Aura = SettingsGameData["Kill_Aura"]
+Auto_Next_Island = SettingsGameData["Auto_Next_Island"]
+Auto_Awakened = SettingsGameData["Auto_Awakened"]
+
+Auto_Random_DF = SettingsGameData["Auto_Random_DF"]
+Method_Bring = SettingsGameData["Method_Bring"]
+Bring_Fruits = SettingsGameData["Bring_Fruits"]
+Auto_Store_Fruits = SettingsGameData["Auto_Store_Fruits"]
+SelectDevilFruits = SettingsGameData["SelectDevilFruits"]
+Auto_Buy_DF_Sniper = SettingsGameData["Auto_Buy_DF_Sniper"]
+Auto_Random_Bone = SettingsGameData["Auto_Random_Bone"]
+Distance_Auto_Farm = SettingsGameData["Distance_Auto_Farm"]
+Bypass_Teleport = SettingsGameData["Bypass_Teleport"]
+Auto_Ken = SettingsGameData["Auto_Ken"]
+Delete_Effect = SettingsGameData["Delete_Effect"]
+WalkOnWater = SettingsGameData["WalkOnWater"]
+White_Screen = SettingsGameData["White_Screen"]
+
+local Save = function()
+
+	SettingsGameData["Selected_Weapons"] = Selected_Weapons
+	SettingsGameData["SelectFastAttackMode"] = SelectFastAttackMode
+	SettingsGameData["Fast_Attack"] = Fast_Attack
+	SettingsGameData["NewFastAttack"] = NewFastAttack
+
+	SettingsGameData["FarmLv"] = FarmLv
+	SettingsGameData["Double_Quest"] = Double_Quest
+	SettingsGameData["Fast_Farm_Mode"] = Fast_Farm_Mode
+	SettingsGameData["Auto_New_World"] = Auto_New_World
+	SettingsGameData["Auto_Third_Sea"] = Auto_Third_Sea
+
+	SettingsGameData["Select_Bosses"] = Select_Bosses or ""
+	SettingsGameData["Auto_Boss_Select"] = Auto_Boss_Select
+	SettingsGameData["Auto_Quest_Bosses"] = Auto_Quest_Bosses
+
+	SettingsGameData["Auto_Superhuman"] = Auto_Superhuman
+	SettingsGameData["Auto_Electric_Claw"] = Auto_Electric_Claw
+	SettingsGameData["Auto_Death_Step"] = Auto_Death_Step
+	SettingsGameData["Auto_Sharkman_Karate"] = Auto_Sharkman_Karate
+	SettingsGameData["Auto_Dragon_Talon"] = Auto_Dragon_Talon
+	SettingsGameData["Auto_Godhuman"] = Auto_Godhuman
+	SettingsGameData["Sanguineart"] = Sanguineart
+
+	SettingsGameData["Auto_All_Sword_Mastery"] = Auto_All_Sword_Mastery
+	SettingsGameData["Auto_Farm_DF_Mastery"] = Auto_Farm_DF_Mastery
+	SettingsGameData["Auto_Farm_Gun_Mastery"] = Auto_Farm_Gun_Mastery
+	SettingsGameData["Mob_Kill"] = Mob_Kill or 25
+
+	SettingsGameData["Skill_Z"] = Skill_Z
+	SettingsGameData["Skill_X"] = Skill_X
+	SettingsGameData["Skill_C"] = Skill_C
+	SettingsGameData["Skill_V"] = Skill_V
+	SettingsGameData["Skill_F"] = Skill_F
+
+	SettingsGameData["Auto_Stats_Kaitun"] = Auto_Stats_Kaitun
+	SettingsGameData["Melee_Stats"] = Melee_Stats
+	SettingsGameData["Defense_Stats"] = Defense_Stats
+	SettingsGameData["Sword_Stats"] = Sword_Stats
+	SettingsGameData["Gun_Stats"] = Gun_Stats
+	SettingsGameData["Devil_Stats"] = Devil_Stats
+
+	SettingsGameData["Auto_Saber"] = Auto_Saber
+	SettingsGameData["Auto_Pole"] = Auto_Pole
+	SettingsGameData["Auto_Franky"] = Auto_Franky
+	SettingsGameData["Auto_Factory_Farm"] = Auto_Factory_Farm
+	SettingsGameData["Auto_Factory_Farm_Hop"] = Auto_Factory_Farm_Hop
+	SettingsGameData["Auto_Dark_Coat"] = Auto_Dark_Coat
+	SettingsGameData["Auto_Dark_Coat_Hop"] = Auto_Dark_Coat_Hop
+	SettingsGameData["Auto_Swan_Glasses"] = Auto_Swan_Glasses
+	SettingsGameData["Auto_Swan_Glasses_Hop"] = Auto_Swan_Glasses_Hop
+
+	SettingsGameData["Auto_Buy_Law_Chip"] = Auto_Buy_Law_Chip
+	SettingsGameData["Auto_Start_Law_Dungeon"] = Auto_Start_Law_Dungeon
+	SettingsGameData["Auto_Kill_Law"] = Auto_Kill_Law
+
+	SettingsGameData["Auto_Find_Full_Moon"] = Auto_Find_Full_Moon
+	SettingsGameData["GrabChestMysticIsland"] = GrabChestMysticIsland
+	SettingsGameData["Auto_Mirage_Island"] = Auto_Mirage_Island
+	SettingsGameData["Auto_Mirage_Island_Hop"] = Auto_Mirage_Island_Hop
+
+	SettingsGameData["Auto_Buddy_Sword"] = Auto_Buddy_Sword
+	SettingsGameData["Auto_Buddy_Sword_Hop"] = Auto_Buddy_Sword_Hop
+
+	SettingsGameData["Auto_Farm_Boss_Hallow"] = Auto_Farm_Boss_Hallow
+	SettingsGameData["Auto_Farm_Boss_Hallow_Hop"] = Auto_Farm_Boss_Hallow_Hop
+
+	SettingsGameData["Auto_Farm_Elite_Hunter"] = Auto_Farm_Elite_Hunter
+	SettingsGameData["Auto_Farm_Elite_Hunter_Hop"] = Auto_Farm_Elite_Hunter_Hop
+	SettingsGameData["Stop_God_Chalice"] = Stop_God_Chalice
+
+	SettingsGameData["Auto_Cavender"] = Auto_Cavender
+	SettingsGameData["Auto_Cavender_Hop"] = Auto_Cavender_Hop
+
+	SettingsGameData["Auto_Dark_Dagger"] = Auto_Dark_Dagger
+	SettingsGameData["Auto_Dark_Dagger_Hop"] = Auto_Dark_Dagger_Hop
+
+	SettingsGameData["Auto_TwinHooks"] = Auto_TwinHooks
+	SettingsGameData["Auto_TwinHooks_Hop"] = Auto_TwinHooks_Hop
+
+	SettingsGameData["Auto_Serpent_Bow"] = Auto_Serpent_Bow
+	SettingsGameData["Auto_Serpent_Bow_Hop"] = Auto_Serpent_Bow_Hop
+
+	SettingsGameData["AutoObservation"] = AutoObservation
+	SettingsGameData["AutoObservation_Hop"] = AutoObservation_Hop
+
+	SettingsGameData["Auto_Cake_Prince"] = Auto_Cake_Prince
+	SettingsGameData["Farm_Bone"] = Farm_Bone
+	SettingsGameData["Auto_Ectoplasm"] = Auto_Ectoplasm
+
+	SettingsGameData["Auto_Bartilo_Quest"] = Auto_Bartilo_Quest
+	SettingsGameData["Auto_Rengoku"] = Auto_Rengoku
+	SettingsGameData["Auto_Holy_Torch"] = Auto_Holy_Torch
+	SettingsGameData["PirateRaid"] = PirateRaid
+	SettingsGameData["Auto_Rainbow_Haki"] = Auto_Rainbow_Haki
+
+	SettingsGameData["AutoTushita"]  = AutoTushita
+	SettingsGameData["AutoTushitaHop"] = AutoTushitaHop
+
+	SettingsGameData["AutoYama"] = AutoYama
+	SettingsGameData["AutoYama"] = AutoYamaHOP
+
+	SettingsGameData["Auto_Musketeer_Hat"] = Auto_Musketeer_Hat
+	SettingsGameData["Auto_Observation_V2"] = Auto_Observation_V2
+	SettingsGameData["Auto_Dough_V2"] = Auto_Dough_V2
+	SettingsGameData["Auto_Quest_Soul_Guitar"] = Auto_Quest_Soul_Guitar
+	SettingsGameData["Tushita_Quest"] = Tushita_Quest
+	SettingsGameData["Yama_Quest"] = Yama_Quest
+	SettingsGameData["Get_Cursed"] = Get_Cursed
+
+	SettingsGameData["Auto_Buy_Legendary_Sword"] = Auto_Buy_Legendary_Sword
+	SettingsGameData["Auto_Buy_Legendary_Sword_Hop"] = Auto_Buy_Legendary_Sword_Hop
+	SettingsGameData["Auto_Buy_Enchanment_Haki"] = Auto_Buy_Enchanment_Haki
+	SettingsGameData["Auto_Buy_Enchanment_Haki_Hop"] = Auto_Buy_Enchanment_Haki_Hop
+
+	SettingsGameData["Mink_Evo"] = Mink_Evo
+	SettingsGameData["Human_Evo"] = Human_Evo
+	SettingsGameData["Skypiea_Evo"] = Skypiea_Evo
+
+	SettingsGameData["Terrorshark"] = Terrorshark
+	SettingsGameData["TerrorsharkHop"] = TerrorsharkHop
+	SettingsGameData["Auto_SeaBeast_Ship"] = Auto_SeaBeast_Ship
+	SettingsGameData["Auto_Kill_Leviathan"] = Auto_Kill_Leviathan
+	SettingsGameData["Auto_Frozen_Dimension"] = Auto_Frozen_Dimension
+
+	SettingsGameData["Select_Raids"] = Select_Raids or ""
+	SettingsGameData["Auto_Raids"] = Auto_Raids
+	SettingsGameData["Kill_Aura"] = Kill_Aura
+	SettingsGameData["Auto_Next_Island"] = Auto_Next_Island
+	SettingsGameData["Auto_Awakened"] = Auto_Awakened
+
+	SettingsGameData["Auto_Random_DF"] = Auto_Random_DF
+	SettingsGameData["Method_Bring"] = Method_Bring or ""
+	SettingsGameData["Bring_Fruits"] = Bring_Fruits
+	SettingsGameData["Auto_Store_Fruits"] = Auto_Store_Fruits
+	SettingsGameData["SelectDevilFruits"] = SelectDevilFruits or ""
+	SettingsGameData["Auto_Buy_DF_Sniper"] = Auto_Buy_DF_Sniper
+
+	SettingsGameData["Auto_Random_Bone"] = Auto_Random_Bone
+	SettingsGameData["Distance_Auto_Farm"] = Distance_Auto_Farm or 35
+	SettingsGameData["Bypass_Teleport"] = Bypass_Teleport
+	SettingsGameData["Auto_Ken"] = Auto_Ken
+	SettingsGameData["Delete_Effect"] = Delete_Effect
+	SettingsGameData["WalkOnWater"] = WalkOnWater
+	SettingsGameData["White_Screen"] = White_Screen
+
+
+	if syn then
+		makefolder("luxury scripts/ID/"..game.GameId)
+	else
+		makefolder("luxury scripts")
+		makefolder("luxury scripts/ID")
+		makefolder("luxury scripts/ID/"..game.GameId)
+	end
+	writefile("luxury scripts/ID/"..game.GameId.."/"..game.Players.LocalPlayer.Name..".lua", game:GetService("HttpService"):JSONEncode(SettingsGameData));
+end
 
 -- [[ Marco Luraph For Fix Lags ]]
 if not LPH_OBFUSCATED then
