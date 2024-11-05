@@ -22,12 +22,12 @@ ButtonScreenGui.Name = "ButtonScreenGui"
 ButtonScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 ImageButton.Parent = ButtonScreenGui
-ImageButton.BackgroundColor3 = Color3.fromRGB(75, 0, 130)
+ImageButton.BackgroundColor3 = Color3.fromRGB(255,250,147)
 ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.1, 0, 0, 10)
 ImageButton.AnchorPoint = Vector2.new(0, 0)
-ImageButton.Size = UDim2.new(0, 50, 0, 50)
+ImageButton.Size = UDim2.new(0, 10, 0, 10)
 ImageButton.Image = "rbxassetid://91853848472964"
 ImageButton.Draggable = true
 
