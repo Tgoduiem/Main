@@ -27,7 +27,7 @@ ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.1, 0, 0, 10)
 ImageButton.AnchorPoint = Vector2.new(0, 0)
-ImageButton.Size = UDim2.new(0, 10, 0, 10)
+ImageButton.Size = UDim2.new(0, 25, 0, 25)
 ImageButton.Image = "rbxassetid://91853848472964"
 ImageButton.Draggable = true
 
