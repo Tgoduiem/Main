@@ -1,5 +1,3 @@
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()		
@@ -10,6 +8,20 @@ local function MakeDraggable(topbarobject, object)
     local DragStart = nil
     local StartPosition = nil
 
+    local function Update(input)
+        local Delta = input.Position - DragStart
+        local pos =
+            UDim2.new(
+                StartPosition.X.Scale,
+                StartPosition.X.Offset + Delta.X,
+                StartPosition.Y.Scale,
+                StartPosition.Y.Offset + Delta.Y
+            )
+        local Tween = TweenService:Create(object, TweenInfo.new(0.2), {Position = pos})
+        Tween:Play()
+    Tween.Completed:Connect(function()
+       Tween:Play()
+    end
 
     topbarobject.InputBegan:Connect(
         function(input)
@@ -79,6 +91,8 @@ end)
 
 UICorner.CornerRadius = UDim.new(0, 12)
 UICorner.Parent = Main
+    end
+end
 
 
 spawn(function()
