@@ -2,29 +2,6 @@
 
 local id = game.PlaceId if id == 2753915549 then World1 = true; elseif id == 4442272183 then World2 = true; elseif id == 7449423635 then World3 = true; else game:Shutdown() end;
 
-do -- Team Script
-	repeat 
-		ChooseTeam = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("ChooseTeam",true)
-		UIController = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("UIController",true)
-		if UIController and ChooseTeam then
-			if ChooseTeam.Visible then
-				for i,v in pairs(getgc()) do
-					if type(v) == "function" and getfenv(v).script == UIController then
-						local constant = getconstants(v)
-						pcall(function()
-							if constant[1] == "Pirates" and #constant == 1 then
-								v(shared.Team or "Pirates")
-							end
-						end)
-					end
-				end
-			end
-		end
-		wait(1)
-	until game.Players.LocalPlayer.Team
-	repeat wait() until game.Players.LocalPlayer.Character
-end
-
 -- [[ Marco Luraph For Fix Lags ]]
 if not LPH_OBFUSCATED then
 	LPH_JIT_MAX = (function(...) return ... end)
