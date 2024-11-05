@@ -1,86 +1,46 @@
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local RunService = game:GetService("RunService")
-local LocalPlayer = game:GetService("Players").LocalPlayer
-local Mouse = LocalPlayer:GetMouse()		
+print("hook func") 
+print("remove effect") 
+print("alr") 
 
-local function MakeDraggable(topbarobject, object)
-    local Dragging = nil
-    local DragInput = nil
-    local DragStart = nil
-    local StartPosition = nil
+print("attack func") 
 
-   
-        
-
-    topbarobject.InputBegan:Connect(
-        function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                Dragging = true
-                DragStart = input.Position
-                StartPosition = object.Position
-
-                input.Changed:Connect(
-                    function()
-                        if input.UserInputState == Enum.UserInputState.End then
-                            Dragging = false
-                        end
-                    end
-                )
-            end
-        end
-    )
-
-    topbarobject.InputChanged:Connect(
-        function(input)
-            if
-                input.UserInputType == Enum.UserInputType.MouseMovement or
-                input.UserInputType == Enum.UserInputType.Touch
-            then
-                DragInput = input
-            end
-        end
-    )
-
-    UserInputService.InputChanged:Connect(
-        function(input)
-            if input == DragInput and Dragging then
-                Update(input)
-            end
-        end
-    )
-end	
-
-
-local PidUi = Instance.new("ScreenGui")
-local Main = Instance.new("ImageButton")
-local UICorner = Instance.new("UICorner")
-
---Properties:
-
-PidUi.Name = "PidUi"
-PidUi.Parent = game.CoreGui
-PidUi.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-Main.Name = "Main"
-Main.Parent = PidUi
-Main.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Main.BorderSizePixel = 0
-Main.ClipsDescendants = true
-Main.Position = UDim2.new(0.081166774, 0, 0.0841463208, 0)
-Main.Size = UDim2.new(0, 50, 0, 50)
-Main.Image = "http://www.roblox.com/asset/?id=12095230917"
-
-MakeDraggable(Main,Main)
-
-Main.MouseButton1Click:Connect(function()
-    game:GetService("VirtualInputManager"):SendKeyEvent(true,"LeftControl",false,game.Players.LocalPlayer.Character.HumanoidRootPart)
-    game:GetService("VirtualInputManager"):SendKeyEvent(false,"LeftControl",false,game.Players.LocalPlayer.Character.HumanoidRootPart)
+local player = game.Players.LocalPlayer
+local L1 = Instance.new("ScreenGui")
+local L2 = Instance.new("TextButton")
+local L3 = Instance.new("UICorner")
+local L4 = Instance.new("ImageLabel")
+local sound = Instance.new("Sound")
+L3.Name = "UICorner"
+L3.Parent = L2
+L4.Name = "ButtonImage"
+L4.Parent = L2
+L4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+L4.BackgroundTransparency = 1.000
+L4.BorderSizePixel = 0
+L4.Position = UDim2.new(0.1, 0, 0.1, 0) 
+L4.Size = UDim2.new(0, 45, 0, 45)
+L4.Image = ""
+L1.Name = "MainGui"
+L1.Parent = player:WaitForChild("PlayerGui")
+L1.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+L2.Name = "CustomButton"
+L2.Parent = L1
+L2.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+L2.BackgroundTransparency = 0.2
+L2.BorderSizePixel = 0
+L2.Position = UDim2.new(0.1208, 0, 0.0953, 0)
+L2.Size = UDim2.new(0, 50, 0, 50)
+L2.Font = Enum.Font.LuckiestGuy
+L2.Text = "HadesGod\n Premium"
+L2.TextColor3 = Color3.fromRGB(255, 255, 255)
+L2.TextSize = 9.000
+L2.Draggable = true
+sound.Parent = L2
+sound.SoundId = "rbxassetid://130785805"
+L2.MouseButton1Click:Connect(function()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
+    sound:Play()
 end)
-
-UICorner.CornerRadius = UDim.new(0, 12)
-UICorner.Parent = Main
 
 spawn(function()
     for i, v in pairs(game:GetDescendants()) do
