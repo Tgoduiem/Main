@@ -1,85 +1,49 @@
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
-local TeleportPos
-local currentTween 
-local function topos(Tween_Pos)
-    TeleportPos = Tween_Pos.p
-    local plrPP = Player.Character and Player.Character.PrimaryPart
-    if not plrPP then return end
-    local Distance = (plrPP.Position - Tween_Pos.p).Magnitude
-    local PortalPos = GetTPPos(Tween_Pos.p)
-    if Tween_Pos.p.Y < plrPP.Position.Y then
-        plrPP.CFrame = CFrame.new(plrPP.Position.X, Tween_Pos.p.Y, plrPP.Position.Z)
-    elseif Tween_Pos.p.Y > plrPP.Position.Y then
-        plrPP.CFrame = CFrame.new(plrPP.Position.X, Tween_Pos.p.Y, plrPP.Position.Z)
-    end
-    if Distance > (Tween_Pos.p - PortalPos).Magnitude + 250 then
-        plrPP.CFrame = CFrame.new(PortalPos)
-        block.CFrame = CFrame.new(PortalPos)
-        task.wait(2) 
-    elseif block then
-        local tweenTime = Distance / getgenv().TweenSpeed
-        if Distance <= 250 then
-            tweenTime = Distance / tonumber(getgenv().TweenSpeed * 1.8)
-        end
-        if currentTween then
-            currentTween:Pause()
-        end
-        local tweenInfo = TweenInfo.new(tweenTime, Enum.EasingStyle.Linear)
-        local tweenGoal = {CFrame = Tween_Pos}
-        currentTween = TweenService:Create(block, tweenInfo, tweenGoal)
-        currentTween:Play()
-    end
-end
+local MainScreenGui = Instance.new("ScreenGui")
+local ButtonScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+MainScreenGui.Name = "MainScreenGui"
+MainScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+MainScreenGui.Enabled = false
 
-local function stopTween()
-    if currentTween then
-        currentTween:Cancel()
-        currentTween = nil
-    end
-end
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = MainScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+MainFrame.BackgroundTransparency = 1
+MainFrame.Size = UDim2.new(1, 0, 1, 0)
+MainFrame.Draggable = true
 
+ButtonScreenGui.Name = "ButtonScreenGui"
+ButtonScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
+ImageButton.Parent = ButtonScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(75, 0, 130)
+ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.1, 0, 0, 10)
+ImageButton.AnchorPoint = Vector2.new(0, 0)
+ImageButton.Size = UDim2.new(0, 50, 0, 50)
+ImageButton.Image = "rbxassetid://91853848472964"
+ImageButton.Draggable = true
 
+UICorner.CornerRadius = UDim.new(0.5, 0)
+UICorner.Parent = ImageButton
 
-
-
-
-local player = game.Players.LocalPlayer
-local L1 = Instance.new("ScreenGui")
-local L2 = Instance.new("TextButton")
-local L3 = Instance.new("UICorner")
-local L4 = Instance.new("ImageLabel")
-local sound = Instance.new("Sound")
-L3.Name = "UICorner"
-L3.Parent = L2
-L4.Name = "ButtonImage"
-L4.Parent = L2
-L4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-L4.BackgroundTransparency = 1.000
-L4.BorderSizePixel = 0
-L4.Position = UDim2.new(0.1, 0, 0.1, 0) 
-L4.Size = UDim2.new(0, 45, 0, 45)
-L4.Image = ""
-L1.Name = "MainGui"
-L1.Parent = player:WaitForChild("PlayerGui")
-L1.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-L2.Name = "CustomButton"
-L2.Parent = L1
-L2.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-L2.BackgroundTransparency = 0.2
-L2.BorderSizePixel = 0
-L2.Position = UDim2.new(0.1208, 0, 0.0953, 0)
-L2.Size = UDim2.new(0, 50, 0, 50)
-L2.Font = Enum.Font.LuckiestGuy
-L2.Text = "HadesGod\n Premium"
-L2.TextColor3 = Color3.fromRGB(255, 255, 255)
-L2.TextSize = 9.000
-L2.Draggable = true
-sound.Parent = L2
-sound.SoundId = "rbxassetid://130785805"
-L2.MouseButton1Click:Connect(function()
+ImageButton.MouseButton1Click:Connect(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
-    sound:Play()
+
+    local scaleUpTween = TweenService:Create(ImageButton, TweenInfo.new(0.1), { Size = UDim2.new(0, 55, 0, 55) })
+    local scaleDownTween = TweenService:Create(ImageButton, TweenInfo.new(0.1), { Size = UDim2.new(0, 50, 0, 50) })
+
+    scaleUpTween:Play()
+    scaleUpTween.Completed:Connect(function()
+        scaleDownTween:Play()
+    end)
 end)
 
 spawn(function()
