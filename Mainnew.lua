@@ -1,3 +1,48 @@
+local TweenService = game:GetService("TweenService")
+local TeleportPos
+local currentTween 
+local function topos(Tween_Pos)
+    TeleportPos = Tween_Pos.p
+    local plrPP = Player.Character and Player.Character.PrimaryPart
+    if not plrPP then return end
+    local Distance = (plrPP.Position - Tween_Pos.p).Magnitude
+    local PortalPos = GetTPPos(Tween_Pos.p)
+    if Tween_Pos.p.Y < plrPP.Position.Y then
+        plrPP.CFrame = CFrame.new(plrPP.Position.X, Tween_Pos.p.Y, plrPP.Position.Z)
+    elseif Tween_Pos.p.Y > plrPP.Position.Y then
+        plrPP.CFrame = CFrame.new(plrPP.Position.X, Tween_Pos.p.Y, plrPP.Position.Z)
+    end
+    if Distance > (Tween_Pos.p - PortalPos).Magnitude + 250 then
+        plrPP.CFrame = CFrame.new(PortalPos)
+        block.CFrame = CFrame.new(PortalPos)
+        task.wait(2) 
+    elseif block then
+        local tweenTime = Distance / getgenv().TweenSpeed
+        if Distance <= 250 then
+            tweenTime = Distance / tonumber(getgenv().TweenSpeed * 1.8)
+        end
+        if currentTween then
+            currentTween:Pause()
+        end
+        local tweenInfo = TweenInfo.new(tweenTime, Enum.EasingStyle.Linear)
+        local tweenGoal = {CFrame = Tween_Pos}
+        currentTween = TweenService:Create(block, tweenInfo, tweenGoal)
+        currentTween:Play()
+    end
+end
+
+local function stopTween()
+    if currentTween then
+        currentTween:Cancel()
+        currentTween = nil
+    end
+end
+
+
+
+
+
+
 function TP2(Pos)
     if game.Players.LocalPlayer.Character.Humanoid.Health > 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
         local Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
