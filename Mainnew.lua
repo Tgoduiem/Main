@@ -1391,7 +1391,7 @@ spawn(function()
                 _G.AutoBartilo or
                 _G.AutoFactory or
                 _G.AutoPirateRaid or
-                _G.AutoAutoMastery or
+                _G.AutoMastery or
                 _G.AutoChestSafe
             then
                 enableNoclip()
@@ -1756,12 +1756,19 @@ do
     end)
     Options.AutoBoneFlag:SetValue(false)
 
+--Katakuri
     AutoCakePrince = Tabs.Main:AddToggle("AutoCakePrinceFlag", { Title = "Farm Cake Prince", Default = false })
     AutoCakePrince:OnChanged(function(Value)
         _G.AutoFarmPrince = Value
         StopTween(_G.AutoFarmPrince)
     end)
     Options.AutoCakePrinceFlag:SetValue(false)
+
+    
+    --AutoMastery
+    AutoMastery = Tabs.Main:AddToggle("AutoMasteryFlag", { Title = "Auto Mastery", Default = false })
+
+    
      SelectTypeMas = Tabs.Main:AddDropdown("SelectTypeMas", {
         Title = "Select Type Mas",
         Values = { "Gun", "Fruits" },
