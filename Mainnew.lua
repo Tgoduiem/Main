@@ -1782,37 +1782,7 @@ do
         _G.SelectTypeMas = Value
     end)
 
-    task.spawn(function()
-        while wait() do
-            pcall(function()
-                if _G.SelectTypeMas == "Gun" then
-            if game.Players.LocalPlayer.PlayerGui.Main.Skills:FindFirstChild(gun()) then
-                for _,v in pairs(game.Players.LocalPlayer.PlayerGui.Main.Skills[gun()]:GetChildren()) do
-                        if v.Name ~= "Template" and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
-                            return gun(), v.Name
-                        end
-                    end
-                end
-            else
-                EquipName(gun())
-            end
-        elseif Func_Farms["Type Mastery"] == "Fruit" then
-            local FruitData = game.Players.LocalPlayer.Data.DevilFruit.Value
-            if CheckItemBPCR(FruitData) then
-                if game.Players.LocalPlayer.PlayerGui.Main.Skills:FindFirstChild(FruitData) then
-                    for _,v in pairs(game.Players.LocalPlayer.PlayerGui.Main.Skills[FruitData]:GetChildren()) do
-                        if v:IsA("Frame") and table.find(Func_Farms["Skills Press"], v.Name) then
-                            if v.Name ~= "Template" and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
-                                return FruitData, v.Name
-                            end
-                        end
-                    end
-                else
-                    EquipName(FruitData)
-                end
-            end
-        end
-    end
+
 
     if World1 then
         MaterialList = {
