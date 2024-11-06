@@ -1631,8 +1631,8 @@ local InterfaceManager = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "Quantum Hub",
-    SubTitle = "by Prime Andy",
+    Title = "Three Hub",
+    SubTitle = "by Duc",
     TabWidth = 160,
     Size = UDim2.fromOffset(530, 350),
     Acrylic = true,
@@ -1993,6 +1993,9 @@ do
             end
         end)
     end)
+                function FFC(part, name)
+        return part:FindFirstChild(name)
+    end
 
 
     local ListSeaBoat
