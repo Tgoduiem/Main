@@ -3501,7 +3501,7 @@ for _, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
 end
 spawn(function()
     while task.wait() do
-        if _G.AutoFarmPrince and not _G.AcceptQuests and World3 then
+        if FarmMode == "Farm Katakuri" and _G.AutoFarmPrince and not _G.AcceptQuests and World3 then
             pcall(function()
                 for _, v in ipairs(CakeMobs) do
                     if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
@@ -3565,7 +3565,7 @@ spawn(function()
                     end
                 end
             end)
-        elseif _G.AcceptQuests and _G.AutoFarmPrince and World3 then
+        elseif FarmMode == "Farm Katakuri" and _G.AcceptQuests and _G.AutoFarmPrince and World3 then
             pcall(function()
                 for _, v in ipairs(CakeMobs) do
                     if v.Name == "Cake Prince" and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
