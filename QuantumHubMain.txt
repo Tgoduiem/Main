@@ -2293,12 +2293,6 @@ function LoadFunction()
         end
     )
 end
-LoadFunction()
-u.MouseButton1Down:connect(
-    function()
-        Quantum.Window:Minimize()
-    end
-)
 
 local Quantum = loadstring(game:HttpGet("https://raw.githubusercontent.com/FlazhGG/Quantum-V2/main/QuantumHubLibrary"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
