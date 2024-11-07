@@ -1746,15 +1746,8 @@ do
     end)
     Options.AutoAcceptQuestFlag:SetValue(false)
 
-    AutoBone = Tabs.Main:AddToggle("AutoBoneFlag", { Title = "Farm Bones", Default = false })
-    AutoBone:OnChanged(function(Value)
-        _G.Auto_Bone = Value
-        if _G.Auto_Bone == false then
-            LockTween()
-            StopTween(_G.Auto_Bone)
-        end
-    end)
-    Options.AutoBoneFlag:SetValue(false)
+    
+   
 
 --Katakuri
     AutoCakePrince = Tabs.Main:AddToggle("AutoCakePrinceFlag", { Title = "Farm Cake Prince", Default = false })
