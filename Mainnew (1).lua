@@ -2812,7 +2812,7 @@ spawn(function()
                                 StartBring = true
                                 game:GetService 'VirtualUser':CaptureController()
                                 game:GetService 'VirtualUser':Button1Down(Vector2.new(1280, 672))
-                            until not _G.Auto_Bone or not v.Parent or v.Humanoid.Health <= 0
+                            until not _G.AutoFarm or not v.Parent or v.Humanoid.Health <= 0
                             StartBring = false
                             UnEquipWeapon(_G.SelectWeapon)
                         end
@@ -2885,7 +2885,7 @@ spawn(function()
                                         StartBring = true
                                         game:GetService 'VirtualUser':CaptureController()
                                         game:GetService 'VirtualUser':Button1Down(Vector2.new(1280, 672))
-                                    until not _G.Auto_Bone or v.Humanoid.Health <= 0 or not v.Parent or not game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible
+                                    until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent or not game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible
                                     StartBring = false
                                     UnEquipWeapon(_G.SelectWeapon)
                                 end
