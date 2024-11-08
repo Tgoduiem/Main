@@ -1719,14 +1719,14 @@ do
         end
     end)
 
-    SelectFarmMode = Tabs.Main:AddDropdown("SelectFarmMode", {
-        Title = "Select Farm Mode",
-        Values = { "Normal", "No Quest", "Nearest" },
+    SelectMethodFram = Tabs.Main:AddDropdown("SelectMethodFram", {
+        Title = "Select Method Fram",
+        Values = { "Fram Level", "Fram Bone", "Fram Katakuri" },
         Multi = false,
         Default = 1,
     })
 
-    SelectFarmMode:SetValue("Normal")
+    SelectFarmMode:SetValue("Fram Level")
 
     SelectFarmMode:OnChanged(function(Value)
         FarmMode = Value
@@ -2483,217 +2483,6 @@ do
     Options.StartTravelIslandFlag:SetValue(false)
 
 
-    --Fun/Visual Section
-
-    Tabs.Fun:AddButton({
-        Title = "Rain Fruit",
-        Description = "Old to New Fruit",
-        Callback = function()
-            for i, v in pairs(game:GetObjects("rbxassetid://14759368201")[1]:GetChildren()) do
-                v.Parent = game.Workspace.Map
-                v:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position +
-                    Vector3.new(math.random(-50, 50), 100, math.random(-50, 50)))
-                if v.Fruit:FindFirstChild("AnimationController") then
-                    v.Fruit:FindFirstChild("AnimationController"):LoadAnimation(v.Fruit:FindFirstChild("Idle")):Play()
-                end
-                v.Handle.Touched:Connect(function(otherPart)
-                    if otherPart.Parent == game.Players.LocalPlayer.Character then
-                        v.Parent = game.Players.LocalPlayer.Backpack
-                        game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
-                    end
-                end)
-            end
-        end
-    })
-
-    Tabs.Fun:AddButton({
-        Title = "Instant Max All",
-        Description = "Beli, Level, Exp",
-        Callback = function()
-            local plr = game:GetService("Players").LocalPlayer
-            local Notification = require(game:GetService("ReplicatedStorage").Notification)
-            local Data = plr:WaitForChild("Data")
-            local EXPFunction = require(game.ReplicatedStorage:WaitForChild("EXPFunction"))
-            local LevelUp = require(game:GetService("ReplicatedStorage").Effect.Container.LevelUp)
-            local Sound = require(game:GetService("ReplicatedStorage").Util.Sound)
-            local LevelUpSound = game:GetService("ReplicatedStorage").Util.Sound.Storage.Other:FindFirstChild(
-                    "LevelUp_Proxy") or
-                game:GetService("ReplicatedStorage").Util.Sound.Storage.Other:FindFirstChild("LevelUp")
-            function v129(p15)
-                local v130 = p15;
-                while true do
-                    local v131, v132 = string.gsub(v130, "^(-?%d+)(%d%d%d)", "%1,%2");
-                    v130 = v131;
-                    if v132 == 0 then
-                        break;
-                    end;
-                end;
-                return v130;
-            end;
-
-            Notification.new("<Color=Yellow>QUEST COMPLETED!<Color=/>"):Display()
-            Notification.new("Earned <Color=Yellow>9,999,999,999,999 Exp.<Color=/> (+ None)"):Display()
-            Notification.new("Earned <Color=Green>$9,999,999,999,999<Color=/>"):Display()
-            plr.Data.Exp.Value = 999999999999
-            plr.Data.Beli.Value = plr.Data.Beli.Value + 999999999999
-
-            delay = 0
-            count = 0
-            while plr.Data.Exp.Value - EXPFunction(Data.Level.Value) > 0 do
-                plr.Data.Exp.Value = plr.Data.Exp.Value - EXPFunction(Data.Level.Value)
-                plr.Data.Level.Value = plr.Data.Level.Value + 1
-                plr.Data.Points.Value = plr.Data.Points.Value + 3
-                LevelUp({ plr })
-                Sound.Play(Sound, LevelUpSound.Value)
-                Notification.new("<Color=Green>LEVEL UP!<Color=/> (" .. plr.Data.Level.Value .. ")"):Display()
-                count = count + 1
-                if count >= 10 then
-                    delay = tick()
-                    count = 0
-                    wait(1)
-                end
-            end
-        end
-    })
-
-    Tabs.Fun:AddButton({
-        Title = "Human V4",
-        Description = "Transformation Animation",
-        Callback = function()
-            require(game:GetService("ReplicatedStorage").Notification).new("Human V4!"):Display();
-            wait()
-            setthreadcontext(5)
-            local ReplicatedStorage = game:GetService("ReplicatedStorage")
-            local Player = game:GetService("Players").LocalPlayer
-            local ArgsTransform = {
-                Character = game.Players.LocalPlayer.Character,
-                CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
-                Color1 = Color3.fromRGB(166, 0, 0),
-                Color2 = Color3.fromRGB(166, 0, 0),
-                Color3 = Color3.fromRGB(166, 0, 0),
-            }
-            Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
-            delay(1, function()
-                pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
-            end)
-        end
-    })
-
-    Tabs.Fun:AddButton({
-        Title = "Mink V4",
-        Description = "Transformation Animation",
-        Callback = function()
-            require(game:GetService("ReplicatedStorage").Notification).new("Mink V4!"):Display();
-            wait()
-            setthreadcontext(5)
-            local ReplicatedStorage = game:GetService("ReplicatedStorage")
-            local Player = game:GetService("Players").LocalPlayer
-            local ArgsTransform = {
-                Character = game.Players.LocalPlayer.Character,
-                CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
-                Color1 = Color3.fromRGB(102, 255, 153),
-                Color2 = Color3.fromRGB(102, 255, 153),
-                Color3 = Color3.fromRGB(102, 255, 153),
-            }
-            Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
-            delay(1, function()
-                pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
-            end)
-        end
-    })
-
-    Tabs.Fun:AddButton({
-        Title = "Fishman V4",
-        Description = "Transformation Animation",
-        Callback = function()
-            require(game:GetService("ReplicatedStorage").Notification).new("Fishman V4!"):Display();
-            wait()
-            setthreadcontext(5)
-            local ReplicatedStorage = game:GetService("ReplicatedStorage")
-            local Player = game:GetService("Players").LocalPlayer
-            local ArgsTransform = {
-                Character = game.Players.LocalPlayer.Character,
-                CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
-                Color1 = Color3.fromRGB(5, 115, 166),
-                Color2 = Color3.fromRGB(5, 115, 166),
-                Color3 = Color3.fromRGB(5, 115, 166),
-            }
-            Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
-            delay(1, function()
-                pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
-            end)
-        end
-    })
-
-    Tabs.Fun:AddButton({
-        Title = "Skypiean V4",
-        Description = "Transformation Animation",
-        Callback = function()
-            require(game:GetService("ReplicatedStorage").Notification).new("Skypeian V4!"):Display();
-            wait()
-            setthreadcontext(5)
-            local ReplicatedStorage = game:GetService("ReplicatedStorage")
-            local Player = game:GetService("Players").LocalPlayer
-            local ArgsTransform = {
-                Character = game.Players.LocalPlayer.Character,
-                CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
-                Color1 = Color3.fromRGB(222, 222, 0),
-                Color2 = Color3.fromRGB(222, 222, 0),
-                Color3 = Color3.fromRGB(222, 222, 0),
-            }
-            Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
-            delay(1, function()
-                pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
-            end)
-        end
-    })
-
-    Tabs.Fun:AddButton({
-        Title = "Ghoul V4",
-        Description = "Transformation Animation",
-        Callback = function()
-            require(game:GetService("ReplicatedStorage").Notification).new("Ghoul V4!"):Display();
-            wait()
-            setthreadcontext(5)
-            local ReplicatedStorage = game:GetService("ReplicatedStorage")
-            local Player = game:GetService("Players").LocalPlayer
-            local ArgsTransform = {
-                Character = game.Players.LocalPlayer.Character,
-                CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
-                Color1 = Color3.fromRGB(155, 155, 155),
-                Color2 = Color3.fromRGB(0, 0, 0),
-                Color3 = Color3.fromRGB(155, 155, 155),
-            }
-            Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
-            delay(1, function()
-                pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
-            end)
-        end
-    })
-
-    Tabs.Fun:AddButton({
-        Title = "Cyborg V4",
-        Description = "Transformation Animation",
-        Callback = function()
-            require(game:GetService("ReplicatedStorage").Notification).new("Cyborg V4!"):Display();
-            wait()
-            setthreadcontext(5)
-            local ReplicatedStorage = game:GetService("ReplicatedStorage")
-            local Player = game:GetService("Players").LocalPlayer
-            local ArgsTransform = {
-                Character = game.Players.LocalPlayer.Character,
-                CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
-                Color1 = Color3.fromRGB(166, 0, 111),
-                Color2 = Color3.fromRGB(166, 0, 111),
-                Color3 = Color3.fromRGB(166, 0, 111),
-            }
-            Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
-            delay(1, function()
-                pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
-            end)
-        end
-    })
-
     --Fruit
 
     Tabs.Fruit:AddButton({
@@ -2896,7 +2685,7 @@ end
 
 spawn(function()
     while wait() do
-        if FarmMode == "Normal" and _G.AutoFarm then
+        if FarmMode == "Fram Level" and _G.AutoFarm then
             pcall(function()
                 CheckQuest()
                 local QuestTitle = Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text
