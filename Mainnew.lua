@@ -1504,20 +1504,45 @@ function autoFarmEnemies()
         end
     end
 end
-
-function bringMob()
-    sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
-    local targetPos = (BringMobChoosen and BringMobChoosen.HumanoidRootPart) and BringMobChoosen.HumanoidRootPart.CFrame or
-        LockCFrame
-    for _, v in pairs(game.Workspace.Enemies:GetChildren()) do
-        if v:FindFirstChild("HumanoidRootPart") then
-            local hrp = v.HumanoidRootPart
-            if (hrp.Position - targetPos.Position).Magnitude < _G.BringMode and (hrp.Position - targetPos.Position).Magnitude > 3 then
-                handleEnemy(v, targetPos, Vector3.new(1, 1, 1))
+local KillMonster = function(mob,bringmobvalue,value)
+        if CheckEnemies(mob) and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+            local v = CheckEnemies(mob)
+            task.spawn(function()
+                if CheckStatusFeature(bringmobvalue) == "TRUE" then
+                    pcall(function()
+                        Bring(v.Name,v.HumanoidRootPart.CFrame,(v.HumanoidRootPart.CFrame.Position - v.HumanoidRootPart.Position), 350)
+                    end)
+                end
+            end)
+   function CheckEnemies(k, replicated)
+        if not replicated then
+            replicated = false
+        end
+        for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+            if type(k) == "table" then
+                if table.find(k, RemoveLevelTitle(v.Name)) and DetectingPart(v) and v.Humanoid.Health > 0 then
+                    return v
+                end
+            else
+                if RemoveLevelTitle(v.Name) == k and DetectingPart(v) and v.Humanoid.Health > 0 then
+                    return v
+                end
+            end
+        end
+        if replicated then
+            for i,v in pairs(game.ReplicatedStorage:GetChildren()) do
+                if type(k) == "table" then
+                    if table.find(k, RemoveLevelTitle(v.Name)) then
+                        return v
+                    end
+                else
+                    if RemoveLevelTitle(v.Name) == k then
+                        return v
+                    end
+                end
             end
         end
     end
-end
 
 function checkMobsInDistance(Mon, distance)
     local inDistance = false
@@ -1745,14 +1770,7 @@ do
         _G.AcceptQuests = Value
     end)
     Options.AutoAcceptQuestFlag:SetValue(false)
-
---Katakuri
-    AutoCakePrince = Tabs.Main:AddToggle("AutoCakePrinceFlag", { Title = "Farm Cake Prince", Default = false })
-    AutoCakePrince:OnChanged(function(Value)
-        _G.AutoFarmPrince = Value
-        StopTween(_G.AutoFarmPrince)
-    end)
-    Options.AutoCakePrinceFlag:SetValue(false)
+    
 
     
     --AutoMastery
