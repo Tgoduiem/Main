@@ -1726,9 +1726,9 @@ do
         Default = 1,
     })
 
-    SelectFarmMode:SetValue("Fram Level")
+    SelectMethodFram:SetValue("Fram Level")
 
-    SelectFarmMode:OnChanged(function(Value)
+    SelectMethodFram:OnChanged(function(Value)
         FarmMode = Value
     end)
 
