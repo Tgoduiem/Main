@@ -2872,7 +2872,7 @@ local BoneQuestPos = CFrame.new(-9516.99316, 172.017181, 6078.46533, 0, 0, -1, 0
 
 spawn(function()
     while wait() do
-        if FarmMode == "Fram Bone" and _G.AutoFarm  and not _G.AcceptQuests and World3 then
+        if FarmMode == "Fram Bone" and _G.AutoFarm and World3 then
             pcall(function()
                 local BoneFarmMobs = {
                     "Reborn Skeleton",
