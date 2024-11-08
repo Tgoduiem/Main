@@ -2706,98 +2706,6 @@ spawn(function()
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest", NameQuest,
                             LevelQuest)
                     end
-                elseif Players.LocalPlayer.PlayerGui.Main.Quest.Visible then
-                    local Enemies = Workspace.Enemies
-                    if Enemies:FindFirstChild(Mon) then
-                        for _, v in pairs(Enemies:GetChildren()) do
-                            if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
-                                if v.Name == Mon then
-                                    if string.find(QuestTitle, NameMon) then
-                                        repeat
-                                            task.wait()
-                                            if (Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude <= 100 then
-                                                EquipWeapon(_G.SelectWeapon)
-                                            end
-                                            AutoHaki()
-                                            PosMon = v.HumanoidRootPart.CFrame
-                                            MonFarm = v.Name
-                                            Status = "Attacking..."
-                                            MonsterStatus:SetDesc("[Monster] : " .. MonFarm ..
-                                                " | [Status] : " .. Status)
-                                            topos(v.HumanoidRootPart.CFrame * Pos)
-                                            StartBring = true
-                                            game:GetService 'VirtualUser':CaptureController()
-                                            game:GetService 'VirtualUser':Button1Down(Vector2.new(1280, 672))
-                                        until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent or not Players.LocalPlayer.PlayerGui.Main.Quest.Visible
-                                        Status = "Waiting..."
-                                        MonsterStatus:SetDesc("[Monster] : " .. MonFarm .. " | [Status] : " .. Status)
-                                        UnEquipWeapon(_G.SelectWeapon)
-                                    end
-                                end
-                            end
-                        end
-                    else
-                        TP1(CFrameMon)
-                        UnEquipWeapon(_G.SelectWeapon)
-                    end
-                end
-            end)
-        elseif FarmMode == "No Quest" and _G.AutoFarm then
-            pcall(function()
-                local Enemies = Workspace.Enemies
-                if Enemies:FindFirstChild(Mon) then
-                    for i, v in pairs(Enemies:GetChildren()) do
-                        if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
-                            if v.Name == Mon then
-                                repeat
-                                    task.wait()
-                                    if (Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude <= 100 then
-                                        EquipWeapon(_G.SelectWeapon)
-                                    end
-                                    AutoHaki()
-                                    PosMon = v.HumanoidRootPart.CFrame
-                                    MonFarm = v.Name
-                                    topos(v.HumanoidRootPart.CFrame * Pos)
-                                    StartBring = true
-                                    game:GetService 'VirtualUser':CaptureController()
-                                    game:GetService 'VirtualUser':Button1Down(Vector2.new(1280, 672))
-                                until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent
-                                StartBring = false
-                                UnEquipWeapon(_G.SelectWeapon)
-                            end
-                        end
-                    end
-                else
-                    TP1(CFrameMon)
-                    UnEquipWeapon(_G.SelectWeapon)
-                end
-            end)
-        elseif FarmMode == "Nearest" and _G.AutoFarm then
-            pcall(function()
-                local Enemies = Workspace.Enemies
-                for i, v in pairs(Enemies:GetChildren()) do
-                    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                        if v.Name then
-                            if (Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude <= 5000 then
-                                repeat
-                                    wait()
-                                    AutoHaki()
-                                    EquipWeapon(_G.SelectWeapon)
-                                    TP1(v.HumanoidRootPart.CFrame * Pos)
-                                    PosMon = v.HumanoidRootPart.CFrame
-                                    MonFarm = v.Name
-                                    sethiddenproperty(Players.LocalPlayer, "SimulationRadius", math.huge)
-                                    StartBring = true
-                                until not _G.AutoFarm or not v.Parent or v.Humanoid.Health <= 0 or not Enemies:FindFirstChild(v.Name)
-                                StartBring = false
-                            end
-                        end
-                    end
-                end
-            end)
-        end
-    end
-end)
 
 spawn(function()
     while wait() do
@@ -2924,7 +2832,7 @@ spawn(function()
                     topos(v.HumanoidRootPart.CFrame * Pos)
                 end
             end)
-        elseif FarmMode == "Fram Bone" and _G.AutoFarm  and _G.AcceptQuests and World3 then
+        elseif FarmMode == "Fram Bone" and _G.AutoFarm and World3 then
             pcall(function()
                 local BoneFarmMobs = {
                     "Reborn Skeleton",
