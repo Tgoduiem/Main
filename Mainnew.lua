@@ -1631,8 +1631,8 @@ local InterfaceManager = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "Pear Cat Hub Hub",
-    SubTitle = "by Ztx",
+    Title = "Three Hub",
+    SubTitle = "by Duc",
     TabWidth = 160,
     Size = UDim2.fromOffset(530, 350),
     Acrylic = true,
@@ -1656,7 +1656,6 @@ local Tabs = {
 local Options = Fluent.Options
 
 do
-     
     local CurrentMon = ""
     local Status = "Waiting..."
 
@@ -1681,17 +1680,6 @@ do
                 end)
             end
         end
-    end)
-     SelectMethodFram = Tabs.Main:AddDropdown("SelectMethodFram", {
-        Title = "Select Method Fram",
-        Values = { "Fram Level", "Fram Bone", "Fram Kakaturi" },
-        Multi = false,
-        Default = 1,
-    })
-    SelectMethodFram:SetValue("Fram Level")
-
-    SelectMethodFram:OnChanged(function(Value)
-        FarmMode = Value
     end)
 
     SelectWeapon = Tabs.Main:AddDropdown("SelectWeapon", {
@@ -1731,7 +1719,19 @@ do
         end
     end)
 
-    
+    SelectFarmMode = Tabs.Main:AddDropdown("SelectFarmMode", {
+        Title = "Select Farm Mode",
+        Values = { "Normal", "No Quest", "Nearest" },
+        Multi = false,
+        Default = 1,
+    })
+
+    SelectFarmMode:SetValue("Normal")
+
+    SelectFarmMode:OnChanged(function(Value)
+        FarmMode = Value
+    end)
+
     AutoFarm = Tabs.Main:AddToggle("AutoFarmFlag", { Title = "Auto Farm", Default = false })
     AutoFarm:OnChanged(function(Value)
         _G.AutoFarm = Value
@@ -1746,8 +1746,15 @@ do
     end)
     Options.AutoAcceptQuestFlag:SetValue(false)
 
-    
-   
+    AutoBone = Tabs.Main:AddToggle("AutoBoneFlag", { Title = "Farm Bones", Default = false })
+    AutoBone:OnChanged(function(Value)
+        _G.Auto_Bone = Value
+        if _G.Auto_Bone == false then
+            LockTween()
+            StopTween(_G.Auto_Bone)
+        end
+    end)
+    Options.AutoBoneFlag:SetValue(false)
 
 --Katakuri
     AutoCakePrince = Tabs.Main:AddToggle("AutoCakePrinceFlag", { Title = "Farm Cake Prince", Default = false })
@@ -1775,7 +1782,37 @@ do
         _G.SelectTypeMas = Value
     end)
 
-
+    task.spawn(function()
+        while wait() do
+            pcall(function()
+                if _G.SelectTypeMas == "Gun" then
+            if game.Players.LocalPlayer.PlayerGui.Main.Skills:FindFirstChild(gun()) then
+                for _,v in pairs(game.Players.LocalPlayer.PlayerGui.Main.Skills[gun()]:GetChildren()) do
+                        if v.Name ~= "Template" and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
+                            return gun(), v.Name
+                        end
+                    end
+                end
+            else
+                EquipName(gun())
+            end
+        elseif Func_Farms["Type Mastery"] == "Fruit" then
+            local FruitData = game.Players.LocalPlayer.Data.DevilFruit.Value
+            if CheckItemBPCR(FruitData) then
+                if game.Players.LocalPlayer.PlayerGui.Main.Skills:FindFirstChild(FruitData) then
+                    for _,v in pairs(game.Players.LocalPlayer.PlayerGui.Main.Skills[FruitData]:GetChildren()) do
+                        if v:IsA("Frame") and table.find(Func_Farms["Skills Press"], v.Name) then
+                            if v.Name ~= "Template" and v.Title.TextColor3 == Color3.new(1, 1, 1) and v.Cooldown.Size == UDim2.new(0, 0, 1, -1) or v.Cooldown.Size == UDim2.new(1, 0, 1, -1) then
+                                return FruitData, v.Name
+                            end
+                        end
+                    end
+                else
+                    EquipName(FruitData)
+                end
+            end
+        end
+    end
 
     if World1 then
         MaterialList = {
@@ -2883,10 +2920,13 @@ do
             end)
         end
     end)
-    
+
+    --- functions
+end
+
 spawn(function()
     while wait() do
-        if FarmMode == "Fram Level" and _G.AutoFarm then
+        if FarmMode == "Normal" and _G.AutoFarm then
             pcall(function()
                 CheckQuest()
                 local QuestTitle = Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text
@@ -2943,9 +2983,62 @@ spawn(function()
                     end
                 end
             end)
-    
-    --- functions
-end
+        elseif FarmMode == "No Quest" and _G.AutoFarm then
+            pcall(function()
+                local Enemies = Workspace.Enemies
+                if Enemies:FindFirstChild(Mon) then
+                    for i, v in pairs(Enemies:GetChildren()) do
+                        if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+                            if v.Name == Mon then
+                                repeat
+                                    task.wait()
+                                    if (Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude <= 100 then
+                                        EquipWeapon(_G.SelectWeapon)
+                                    end
+                                    AutoHaki()
+                                    PosMon = v.HumanoidRootPart.CFrame
+                                    MonFarm = v.Name
+                                    topos(v.HumanoidRootPart.CFrame * Pos)
+                                    StartBring = true
+                                    game:GetService 'VirtualUser':CaptureController()
+                                    game:GetService 'VirtualUser':Button1Down(Vector2.new(1280, 672))
+                                until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent
+                                StartBring = false
+                                UnEquipWeapon(_G.SelectWeapon)
+                            end
+                        end
+                    end
+                else
+                    TP1(CFrameMon)
+                    UnEquipWeapon(_G.SelectWeapon)
+                end
+            end)
+        elseif FarmMode == "Nearest" and _G.AutoFarm then
+            pcall(function()
+                local Enemies = Workspace.Enemies
+                for i, v in pairs(Enemies:GetChildren()) do
+                    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                        if v.Name then
+                            if (Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude <= 5000 then
+                                repeat
+                                    wait()
+                                    AutoHaki()
+                                    EquipWeapon(_G.SelectWeapon)
+                                    TP1(v.HumanoidRootPart.CFrame * Pos)
+                                    PosMon = v.HumanoidRootPart.CFrame
+                                    MonFarm = v.Name
+                                    sethiddenproperty(Players.LocalPlayer, "SimulationRadius", math.huge)
+                                    StartBring = true
+                                until not _G.AutoFarm or not v.Parent or v.Humanoid.Health <= 0 or not Enemies:FindFirstChild(v.Name)
+                                StartBring = false
+                            end
+                        end
+                    end
+                end
+            end)
+        end
+    end
+end)
 
 spawn(function()
     while wait() do
