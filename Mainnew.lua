@@ -1082,6 +1082,15 @@ end
 function TP1(Pos)
     topos(Pos)
 end
+function ResetTPNearest(Pos)
+        if game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+            if (Vector3.new(-5058.77490234375, 314.5155029296875, -3155.88330078125) - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 2800 then
+                TpEntrance(Vector3.new(-5058.77490234375, 314.5155029296875, -3155.88330078125))
+            else
+                ResetTP(Pos)
+            end
+        end
+    end
 
 function fastpos(Pos)
     Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
@@ -2857,129 +2866,41 @@ spawn(function()
         end
     end
 end)
+function ToTween(Pos)
+        local tween
+        Distance = GetDistance(Pos)
+        if Distance <= 350 then
+            InstantTeleport(Pos)
+        end
 
 local BonePos = CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375)
 local BoneQuestPos = CFrame.new(-9516.99316, 172.017181, 6078.46533, 0, 0, -1, 0, 1, 0, 1, 0, 0)
-
-spawn(function()
-    while wait() do
-        if FarmMode == "Fram Bone" and _G.AutoFarm and _G.AcceptQuests and World3 then
-            pcall(function()
-                local BoneFarmMobs = {
-                    "Reborn Skeleton",
-                    "Living Zombie",
-                    "Demonic Soul",
-                    "Posessed Mummy"
-                }
-                StartBring = false
-                local mobs = game:GetService("Workspace").Enemies:GetChildren()
-                local checkMobs = false
-                for _, mob in ipairs(mobs) do
-                    if table.find(BoneFarmMobs, mob.Name) then
-                        checkMobs = true
-                        break
-                    end
-                end
-                for _, v in ipairs(mobs) do
-                    if table.find(BoneFarmMobs, v.Name) then
-                        if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                            repeat
-                                task.wait()
-                                if (Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude <= 100 then
-                                    EquipWeapon(_G.SelectWeapon)
+            if FarmMode == "Fram Bone" and _G.AutoFarm and _G.AcceptQuests and World3 then
+                local table_BoneMobs = {"Reborn Skeleton","Living Zombie","Demonic Soul","Posessed Mummy"}
+                if CheckEnemies(table_BoneMobs) then
+                    local v = CheckEnemies(table_BoneMobs)
+                    if v and DetectingPart(v) and v.Humanoid.Health > 0 then
+                        pcall(function()
+                                        KillMonster(v.Name, true, 
+                                    until not v or not v:FindFirstChild("Humanoid") or not v:FindFirstChild("HumanoidRootPart") or v.Humanoid.Health <= 0 or CheckStatusFeature(Func_Farms["Auto Bone"]) == "FALSE"
                                 end
-                                AutoHaki()
-                                PosMon = v.HumanoidRootPart.CFrame
-                                MonFarm = v.Name
-                                topos(v.HumanoidRootPart.CFrame * Pos)
-                                StartBring = true
-                                game:GetService 'VirtualUser':CaptureController()
-                                game:GetService 'VirtualUser':Button1Down(Vector2.new(1280, 672))
-                            until not _G.AutoFarm or not v.Parent or v.Humanoid.Health <= 0
-                            StartBring = false
-                            UnEquipWeapon(_G.SelectWeapon)
-                        end
-                    end
-                end
-                if not checkMobs then
-                    if BypassTP then
-                        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - BonePos.Position).Magnitude > 1500 then
-                            BTP(BonePos)
-                        else
-                            topos(BonePos)
-                        end
-                    else
-                        topos(BonePos)
-                    end
-                    UnEquipWeapon(_G.SelectWeapon)
-                    topos(v.HumanoidRootPart.CFrame * Pos)
-                end
-            end)
-        elseif FarmMode == "Fram Bone" and _G.AutoFarm  and _G.AcceptQuests and World3 then
-            pcall(function()
-                local BoneFarmMobs = {
-                    "Reborn Skeleton",
-                    "Living Zombie",
-                    "Demonic Soul",
-                    "Posessed Mummy"
-                }
-
-                local QuestTitle = game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle
-                    .Title.Text
-                if not string.find(QuestTitle, "Demonic Soul") then
-                    StartBring = false
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
-                end
-
-                if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible then
-                    StartBring = false
-                    if BypassTP then
-                        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - BoneQuestPos.Position).Magnitude > 1500 then
-                            BTP(BoneQuestPos)
-                        else
-                            topos(BoneQuestPos)
-                        end
-                    else
-                        topos(BoneQuestPos)
-                    end
-                    if (BoneQuestPos.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 then
-                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest",
-                            "HauntedQuest2", 1)
-                    end
-                elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible then
-                    local mobs = game:GetService("Workspace").Enemies:GetChildren()
-                    if table.find(BoneFarmMobs, "Reborn Skeleton") or
-                        table.find(BoneFarmMobs, "Living Zombie") or
-                        table.find(BoneFarmMobs, "Demonic Soul") or
-                        table.find(BoneFarmMobs, "Posessed Mummy") then
-                        for _, v in pairs(mobs) do
-                            if table.find(BoneFarmMobs, v.Name) and
-                                v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
-                                if string.find(QuestTitle, "Demonic Soul") then
-                                    repeat
-                                        task.wait()
-                                        if (Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude <= 100 then
-                                            EquipWeapon(_G.SelectWeapon)
-                                        end
-                                        AutoHaki()
-                                        PosMon = v.HumanoidRootPart.CFrame
-                                        MonFarm = v.Name
-                                        topos(v.HumanoidRootPart.CFrame * Pos)
-                                        StartBring = true
-                                        game:GetService 'VirtualUser':CaptureController()
-                                        game:GetService 'VirtualUser':Button1Down(Vector2.new(1280, 672))
-                                    until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent or not game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible
-                                    StartBring = false
-                                    UnEquipWeapon(_G.SelectWeapon)
-                                end
+                            else
+                                repeat task.wait()
+                                    KillMonster(v.Name, true, 
+                                until not v or not v:FindFirstChild("Humanoid") or not v:FindFirstChild("HumanoidRootPart") or v.Humanoid.Health <= 0 or 
                             end
-                        end
+                        end)
+                    end
+                else
+                    if (CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 2000 then
+                        ResetTPNearest(CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375))
+                    else
+                        ToTween(CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375))
                     end
                 end
-            end)
+            end
         end
-    end
-end)
+    end)
 
 _G.MagnitudeAdd = 0
 
