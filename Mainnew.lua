@@ -1719,8 +1719,8 @@ do
         end
     end)
 
-    AutoFarm = Tabs.Main:AddToggle("AutoFarmFlag", { Title = "Auto Farm", Default = false })
-    AutoFarm:OnChanged(function(Value)
+    AutoFarmLevel = Tabs.Main:AddToggle("AutoFarmLevel", { Title = "Auto Farm", Default = false })
+    AutoFarmLevel:OnChanged(function(Value)
         _G.AutoFarm = Value
         StopTween(_G.AutoFarm)
         StopTween()
@@ -2675,11 +2675,11 @@ spawn(function()
                 spawn(function()
                     local QuestTitle = game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text
                     if not string.find(QuestTitle, NameMon) then
-                        StartMagnet = false
+                        StartBring = false
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
                     end
                     if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
-                        StartMagnet = false
+                        StartBring = false
                         CheckQuest()
                         if BypassTP then
                             if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude > 2000 then
