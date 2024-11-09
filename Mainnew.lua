@@ -1725,7 +1725,7 @@ do
         StopTween(_G.AutoFarm)
         StopTween()
     end)
-    Options.AutoFarmFlag:SetValue(false)
+    Options.AutoFarmLevel:SetValue(false)
 
     AutoAcceptQuest = Tabs.Main:AddToggle("AutoAcceptQuestFlag", { Title = "Accept Quest", Default = false })
     AutoAcceptQuest:OnChanged(function(Value)
@@ -1756,17 +1756,17 @@ do
     AutoMastery = Tabs.Main:AddToggle("AutoMasteryFlag", { Title = "Auto Mastery", Default = false })
 
     
-     SelectTypeMas = Tabs.Main:AddDropdown("SelectTypeMas", {
-        Title = "Select Type Mas",
+     SelectTypeMastery = Tabs.Main:AddDropdown("SelectTypeMastery", {
+        Title = "Select Type Mastery",
         Values = { "Gun", "Fruits" },
         Multi = false,
         Default = 1,
     })
-    SelectTypeMas:SetValue("Fruits")
+    SelectTypeMastery:SetValue("Fruits")
 
     
-    SelectTypeMas:OnChanged(function(Value)
-        _G.SelectTypeMas = Value
+    SelectTypeMastery:OnChanged(function(Value)
+        _G.SelectTypeMastery = Value
     end)
 
 
