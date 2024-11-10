@@ -1722,8 +1722,9 @@ do
     AutoFarmLevel = Tabs.Main:AddToggle("AutoFarmLevel", { Title = "Auto Farm", Default = false })
     AutoFarmLevel:OnChanged(function(Value)
         _G.AutoFarm = Value
+        if _G.AutoFarm == false then
         StopTween(_G.AutoFarm)
-        StopTween()
+        LockTween()
     end)
     Options.AutoFarmLevel:SetValue(false)
 
@@ -2668,7 +2669,66 @@ do
     end)
 
     --- functions
-end
+    spawn(function()
+    while wait() do
+        if _G.AutoFarm then
+            pcall(function()
+                CheckQuest()
+                local QuestTitle = Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text
+                if not string.find(QuestTitle, NameMon) then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                end
+                if not Players.LocalPlayer.PlayerGui.Main.Quest.Visible then
+                    if BypassTP then
+                        if (Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude > 1500 then
+                            BTP(CFrameQuest)
+                        else
+                            TP1(CFrameQuest)
+                        end
+                    else
+                        TP1(CFrameQuest)
+                    end
+                    if (Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude <= 5 then
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest", NameQuest,
+                            LevelQuest)
+                    end
+                elseif Players.LocalPlayer.PlayerGui.Main.Quest.Visible then
+                    local Enemies = Workspace.Enemies
+                    if Enemies:FindFirstChild(Mon) then
+                        for _, v in pairs(Enemies:GetChildren()) do
+                            if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+                                if v.Name == Mon then
+                                    if string.find(QuestTitle, NameMon) then
+                                        repeat
+                                            task.wait()
+                                            if (Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude <= 100 then
+                                                EquipWeapon(_G.SelectWeapon)
+                                            end
+                                            AutoHaki()
+                                            PosMon = v.HumanoidRootPart.CFrame
+                                            MonFarm = v.Name
+                                            Status = "Attacking..."
+                                            MonsterStatus:SetDesc("[Monster] : " .. MonFarm ..
+                                                " | [Status] : " .. Status)
+                                            topos(v.HumanoidRootPart.CFrame * Pos)
+                                            StartBring = true
+                                            game:GetService 'VirtualUser':CaptureController()
+                                            game:GetService 'VirtualUser':Button1Down(Vector2.new(1280, 672))
+                                        until not _G.AutoFarm or v.Humanoid.Health <= 0 or not v.Parent or not Players.LocalPlayer.PlayerGui.Main.Quest.Visible
+                                        Status = "Waiting..."
+                                        MonsterStatus:SetDesc("[Monster] : " .. MonFarm .. " | [Status] : " .. Status)
+                                        UnEquipWeapon(_G.SelectWeapon)
+                                    end
+                                end
+                            end
+                        end
+                    else
+                        TP1(CFrameMon)
+                        UnEquipWeapon(_G.SelectWeapon)
+                    end
+                end
+            end)
+
 
 
 spawn(function()
