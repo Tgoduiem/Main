@@ -526,7 +526,7 @@ table.sort(v3)
 
 
 
-local v4 = loadstring(game:HttpGet("https://raw.githubusercontent.com/https://discord.gg/VBU9K6ABuE-hubb/https://discord.gg/VBU9K6ABuE/main/FLUENTCUSTOM.luau"))()
+local v4 = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 
 local v5 = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 
@@ -536,9 +536,9 @@ local v6 = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scri
 
 local v7 = v4:CreateWindow({
 
-	Title = "https://discord.gg/VBU9K6ABuE Hub",
+	Title = "Org Hub",
 
-	SubTitle = "https://discord.gg/VBU9K6ABuE Hub",
+	SubTitle = "Ztx",
 
 	TabWidth = 150,
 
