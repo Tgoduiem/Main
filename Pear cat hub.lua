@@ -259,3 +259,12 @@ local v9 = v8.Page1:AddDropdown("Dropdown", {
 	Default = getgenv().Settings.SelectWeapon,
 
 })
+v9:SetValue("Melee")
+
+v9:OnChanged(function(v133)
+
+	v10_ = v133
+
+	getgenv().Settings.SelectWeapon = v133
+
+end)
