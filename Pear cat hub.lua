@@ -238,19 +238,32 @@ local v8 = {
 	}),
 
 }
+
+
+
+
 local v9 = v8.Page1:AddDropdown("Dropdown", {
 
 	Title = "Choose Weapon",
 
 	Description = "Chọn Vũ Khí",
 
-	Values = {"Melee","Sword","Gun"},
+	Values = {
+
+		"Melee",
+
+		"Sword",
+
+		"Gun"
+
+	},
 
 	Multi = false,
 
 	Default = getgenv().Settings.SelectWeapon,
 
 })
+
 v9:SetValue("Melee")
 
 v9:OnChanged(function(v133)
@@ -260,3 +273,61 @@ v9:OnChanged(function(v133)
 	getgenv().Settings.SelectWeapon = v133
 
 end)
+
+
+
+spawn(function()
+
+	while wait(.1) do
+
+		if v10_ == "Melee" then
+
+			for v711, v712 in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+
+				if v712.ToolTip == "Melee" then
+
+					if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v712.Name)) then
+
+						getgenv().SelectWeapon = v712.Name
+
+					end
+
+				end
+
+			end
+
+		elseif v10_ == "Sword" then
+
+			for v713, v714 in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+
+				if v714.ToolTip == "Sword" then
+
+					if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v714.Name)) then
+
+						getgenv().SelectWeapon = v714.Name
+
+					end
+
+				end
+
+			end
+
+		elseif v10_ == "Fruit" then
+
+			for v715, v716 in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+
+				if v716.ToolTip == "Blox Fruit" then
+
+					if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v716.Name)) then
+
+						getgenv().SelectWeapon = v716.Name
+
+					end
+
+				end
+
+			end
+
+		
+
+
