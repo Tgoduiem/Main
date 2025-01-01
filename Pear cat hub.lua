@@ -241,33 +241,6 @@ local v8 = {
 	}),
 
 }
-local v9 = v8.Page1:AddDropdown("Dropdown", {
-
-	Title = "Choose Weapon",
-
-	Description = "Chọn Vũ Khí",
-
-	Values = {
-
-		"Melee",
-
-		"Sword",
-
-		"Gun"
-
-	},
-
-	Multi = false,
-
-	Default = getgenv().Settings.SelectWeapon,
-
-})
-
-v9:SetValue("Melee")
-
-v9:OnChanged(function(v133)
-
-end)
 
 
 	end
