@@ -1,43 +1,8 @@
-spawn(function()
 
-    if getgenv().request then
 
-        return nil
 
-    end
 
-end)
-
-spawn(function()
-
-    if getgenv().request then
-
-        getgenv().request = nil
-
-    end
-
-end)
-
-if getgenv().ScriptExecuted then
-
-    return print("already executed")
-
-end
-
-function ScriptLoad()
-
-repeat
-
-	wait(.1)
-
-until game:IsLoaded() and game.Players.LocalPlayer and game.CoreGui
-
-if getgenv().ScriptExecute then
-
-	return print('Script Already Execute')
-
-end;
-
+repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 
 
 
