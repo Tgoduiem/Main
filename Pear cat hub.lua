@@ -1,7 +1,4 @@
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
--sea-
-
-
 local v69 = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 
@@ -162,7 +159,7 @@ local v8 = {
 
 	Page1 = v7:AddTab({
 
-		Title = "Tab Settings",
+		Title = "Tab Main",
 
 		Icon = ""
 
@@ -178,7 +175,7 @@ local v8 = {
 
 	Page3 = v7:AddTab({
 
-		Title = "Tab Main",
+		Title = "Tab Settings",
 
 		Icon = ""
 
