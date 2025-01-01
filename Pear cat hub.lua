@@ -1,4 +1,35 @@
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+-sea-
+
+if game.PlaceId == 2753915549 then
+
+	Sea1 = true
+
+elseif game.PlaceId == 4442272183 then
+
+	Sea2 = true
+
+elseif game.PlaceId == 7449423635 then
+
+	Sea3 = true
+
+end;
+
+local v2 = game.PlaceId;
+
+if v2 == 2753915549 then
+
+	v6_ = true
+
+elseif v2 == 4442272183 then
+
+	v7_ = true
+
+elseif v2 == 7449423635 then
+
+	v8_ = true
+
+end;
 local v69 = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 
