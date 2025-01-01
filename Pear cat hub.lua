@@ -244,15 +244,7 @@ local v9 = v8.Page1:AddDropdown("Dropdown", {
 
 	Description = "Chọn Vũ Khí",
 
-	Values = {
-
-		"Melee",
-
-		"Sword",
-
-		"Gun"
-
-	},
+	Values = {"Melee","Sword","Gun"},
 
 	Multi = false,
 
