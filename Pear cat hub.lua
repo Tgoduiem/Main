@@ -1,35 +1,7 @@
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 -sea-
 
-if game.PlaceId == 2753915549 then
 
-	Sea1 = true
-
-elseif game.PlaceId == 4442272183 then
-
-	Sea2 = true
-
-elseif game.PlaceId == 7449423635 then
-
-	Sea3 = true
-
-end;
-
-local v2 = game.PlaceId;
-
-if v2 == 2753915549 then
-
-	v6_ = true
-
-elseif v2 == 4442272183 then
-
-	v7_ = true
-
-elseif v2 == 7449423635 then
-
-	v8_ = true
-
-end;
 local v69 = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 
@@ -295,80 +267,8 @@ v9:SetValue("Melee")
 
 v9:OnChanged(function(v133)
 
-	v10_ = v133
-
-	getgenv().Settings.SelectWeapon = v133
-
 end)
-spawn(function()
 
-	while wait(.1) do
-
-		if v10_ == "Melee" then
-
-			for v711, v712 in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-
-				if v712.ToolTip == "Melee" then
-
-					if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v712.Name)) then
-
-						getgenv().SelectWeapon = v712.Name
-
-					end
-
-				end
-
-			end
-
-		elseif v10_ == "Sword" then
-
-			for v713, v714 in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-
-				if v714.ToolTip == "Sword" then
-
-					if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v714.Name)) then
-
-						getgenv().SelectWeapon = v714.Name
-
-					end
-
-				end
-
-			end
-
-		elseif v10_ == "Fruit" then
-
-			for v715, v716 in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-
-				if v716.ToolTip == "Blox Fruit" then
-
-					if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v716.Name)) then
-
-						getgenv().SelectWeapon = v716.Name
-
-					end
-
-				end
-
-			end
-
-		else
-
-			for v717, v718 in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-
-				if v718.ToolTip == "Melee" then
-
-					if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v718.Name)) then
-
-						getgenv().SelectWeapon = v718.Name
-
-					end
-
-				end
-
-			end
-
-		end
 
 	end
 
