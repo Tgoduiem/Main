@@ -42,139 +42,6 @@ end;
 
 
 
--- // Hop \\ --
-
-
-
-
-
-local function v14_()
-
-	local v274 = game.PlaceId;
-
-	local v275 = {}
-
-	local v276 = ""
-
-	local v277 = os.date("!*t").hour;
-
-	local v278 = false;
-
-	local function v43_()
-
-		local v279;
-
-		if v276 == "" then
-
-			v279 = game.HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. v274 .. "/servers/Public?sortOrder=Asc&limit=100"))
-
-		else
-
-			v279 = game.HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. v274 .. "/servers/Public?sortOrder=Asc&limit=100&cursor=" .. v276))
-
-		end;
-
-		local v280 = ""
-
-		if v279.nextPageCursor and v279.nextPageCursor ~= "null" and v279.nextPageCursor ~= nil then
-
-			v276 = v279.nextPageCursor
-
-		end;
-
-		local v281 = 0;
-
-		for v282, v283 in pairs(v279.data) do
-
-			local v284 = true;
-
-			v280 = tostring(v283.id)
-
-			if tonumber(v283.maxPlayers) > tonumber(v283.playing) then
-
-				for v285, v286 in pairs(v275) do
-
-					if v281 ~= 0 then
-
-						if v280 == tostring(v286) then
-
-							v284 = false
-
-						end
-
-					else
-
-						if tonumber(v277) ~= tonumber(v286) then
-
-							local v287 = pcall(function()
-
-								v275 = {}
-
-								table.insert(v275, v277)
-
-							end)
-
-						end
-
-					end;
-
-					v281 = v281 + 1
-
-				end;
-
-				if v284 == true then
-
-					table.insert(v275, v280)
-
-					wait(0.1)
-
-					pcall(function()
-
-						wait(0.1)
-
-						game:GetService("TeleportService"):TeleportToPlaceInstance(v274, v280, game.Players.LocalPlayer)
-
-					end)
-
-					wait(4)
-
-				end
-
-			end
-
-		end
-
-	end;
-
-	local function v44_()
-
-		while wait(.1) do
-
-			pcall(function()
-
-				v43_()
-
-				if v276 ~= "" then
-
-					v43_()
-
-				end
-
-			end)
-
-		end
-
-	end;
-
-	v44_()
-
-end;
-
-
-
-
-
--- // Funny Thing \\ --
 
 
 
@@ -208,93 +75,8 @@ updateUI()
 
 
 
-getgenv().Settings = {
-
-	skibidi = false,
-
-	FastAttack = true,
-
-	BringMob = true,
-
-	AutoRejoin = true
-
-}
-
-local function v0_()
-
-	if readfile and writefile and isfile and isfolder then
-
-		if not isfolder("crackedhub") then
-
-			makefolder("crackedhub")
-
-		end
-
-		if not isfolder("crackedhub/Blox Fruits/") then
-
-			makefolder("crackedhub/Blox Fruits/")
-
-		end
-
-		if not isfile("crackedhub/Blox Fruits/crackedhub.json") then
-
-			writefile("crackedhub/Blox Fruits/crackedhub.json", game:GetService("HttpService"):JSONEncode(getgenv().Settings))
-
-		else
-
-			local v124 = game:GetService("HttpService"):JSONDecode(readfile("crackedhub/Blox Fruits/crackedhub.json"))
-
-			for v125, v126 in pairs(v124) do
-
-				getgenv().Settings[v125] = v126
-
-			end
-
-		end
-
-	else
-
-		return
-
-	end
-
-end
 
 
-
-local function v1_()
-
-	if readfile and writefile and isfile and isfolder then
-
-		if not isfile("crackedhub/Blox Fruits/crackedhub.json") then
-
-			v0_()
-
-		else
-
-			local v127 = game:GetService("HttpService"):JSONDecode(readfile("crackedhub/Blox Fruits/crackedhub.json"))
-
-			local v128 = {}
-
-			for v129, v130 in pairs(getgenv().Settings) do
-
-				v128[v129] = v130
-
-			end
-
-			writefile("crackedhub/Blox Fruits/crackedhub.json", game:GetService("HttpService"):JSONEncode(v128))
-
-		end
-
-	else
-
-		return
-
-	end
-
-end
-
-v0_()
 
 
 
@@ -521,6 +303,137 @@ table.sort(v3)
 
 
 -- // Window | Tab \\ --
+if getgenv().FpsBoost then
+
+	v63_()
+
+end
+
+local v69 = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+
+
+local v70 = v69:FindFirstChild("SkibidiUi")
+
+if v70 then
+
+	v70:Destroy()
+
+end
+
+
+
+v70 = Instance.new("ScreenGui")
+
+v70.Name = "SkibidiUi"
+
+v70.ResetOnSpawn = false
+
+v70.Parent = v69
+
+
+
+local v71 = "rbxassetid://18801298853"
+
+local v72 = Instance.new("ImageButton")
+
+v72.Image = v71
+
+v72.Size = UDim2.new(0, 50, 0, 50)
+
+v72.Position = UDim2.new(0.1, 0, 0.9, - 100)
+
+v72.BackgroundColor3 = Color3.new(255, 255, 255)
+
+v72.BackgroundTransparency = 0
+
+v72.Parent = v70
+
+
+
+local v73 = Instance.new("UICorner", v72)
+
+v73.CornerRadius = UDim.new(0.5, 0)
+
+
+
+local v74 = Instance.new("TextLabel")
+
+v74.Text = ''
+
+v74.Font = Enum.Font.GothamBold
+
+v74.TextSize = 40
+
+v74.TextScaled = false
+
+v74.RichText = true
+
+v74.Size = UDim2.new(1, 0, 1, 0)
+
+v74.BackgroundTransparency = 1
+
+v74.TextXAlignment = Enum.TextXAlignment.Center
+
+v74.TextYAlignment = Enum.TextYAlignment.Center
+
+v74.Parent = v72
+
+
+
+local v75 = false
+
+
+
+local function v76()
+
+	game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
+
+end
+
+
+
+v72.MouseButton1Click:Connect(function()
+
+	if not v75 then
+
+		v76()
+
+	end
+
+	v75 = not v75
+
+end)
+
+
+
+local v77 = 0
+
+local v78 = 0.5
+
+
+
+v72.MouseButton1Click:Connect(function()
+
+	local v454 = tick()
+
+	if v454 - v77 < v78 then
+
+		return
+
+	end
+
+	v77 = v454
+
+	if not v75 then
+
+		v76()
+
+	end
+
+	v75 = not v75
+
+end)
 
 
 
