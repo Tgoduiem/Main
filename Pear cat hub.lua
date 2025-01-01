@@ -159,7 +159,7 @@ local v8 = {
 
 	Page1 = v7:AddTab({
 
-		Title = "Tab Main",
+		Title = "Tab Settings",
 
 		Icon = ""
 
@@ -175,7 +175,7 @@ local v8 = {
 
 	Page3 = v7:AddTab({
 
-		Title = "Tab Settings",
+		Title = "Tab Main",
 
 		Icon = ""
 
@@ -238,3 +238,24 @@ local v8 = {
 	}),
 
 }
+local v9 = v8.Page1:AddDropdown("Dropdown", {
+
+	Title = "Choose Weapon",
+
+	Description = "Chọn Vũ Khí",
+
+	Values = {
+
+		"Melee",
+
+		"Sword",
+
+		"Gun"
+
+	},
+
+	Multi = false,
+
+	Default = getgenv().Settings.SelectWeapon,
+
+})
