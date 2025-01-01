@@ -159,7 +159,7 @@ local v8 = {
 
 	Page1 = v7:AddTab({
 
-		Title = "Tab Main",
+		Title = "Tab Settings",
 
 		Icon = ""
 
@@ -167,7 +167,7 @@ local v8 = {
 
 	Page2 = v7:AddTab({
 
-		Title = "Tab Status",
+		Title = "Tab Status and Server",
 
 		Icon = ""
 
@@ -175,7 +175,7 @@ local v8 = {
 
 	Page3 = v7:AddTab({
 
-		Title = "Tab Settings",
+		Title = "Tab Lock Player",
 
 		Icon = ""
 
@@ -191,7 +191,7 @@ local v8 = {
 
 	Page5 = v7:AddTab({
 
-		Title = "Tab Item Farm",
+		Title = "Tab Main",
 
 		Icon = ""
 
@@ -199,7 +199,7 @@ local v8 = {
 
 	Page6 = v7:AddTab({
 
-		Title = "Tab Auto World",
+		Title = "Tab Subs Fram",
 
 		Icon = ""
 
@@ -207,7 +207,7 @@ local v8 = {
 
 	Page7 = v7:AddTab({
 
-		Title = "Tab Raid",
+		Title = "Tab Muchs Fram",
 
 		Icon = ""
 
@@ -238,41 +238,41 @@ local v8 = {
 	}),
 
 }
+local v10 = v8.Page1:AddToggle("MyToggle", {
 
+	Title = "Fast Attack",
 
+	Description = "Farm Chế Độ Đã Chọn",
 
-
-local v9 = v8.Page1:AddDropdown("Dropdown", {
-
-	Title = "Choose Weapon",
-
-	Description = "Chọn Vũ Khí",
-
-	Values = {
-
-		"Melee",
-
-		"Sword",
-
-		"Fruit"
-
-	},
-
-	Multi = false,
-
-	Default = getgenv().Settings.SelectWeapon,
+	Default = getgenv().Settings.AutoFarm
 
 })
 
-v9:SetValue("Melee")
+v13:OnChanged(function(v134)
 
-v9:OnChanged(function(v133)
+	getgenv().FastType = v134
 
-	v10_ = v133
-
-	getgenv().Settings.SelectWeapon = v133
+	getgenv().Settings.FastType = v134
 
 end)
+
+spawn(function()
+
+	while wait(.1) do
+
+		if getgenv().FastType then
+
+			getgenv().FastAttackDelay = tonumber(getgenv().FastType) or 0.1
+
+		end
+
+	end
+
+end)
+
+
+
+
 		
 
 
